@@ -1,13 +1,39 @@
-import React from "react";
+import { useAppDispatch } from "@/Redux/Hook";
 import { Button } from "../ui/button";
+import { removeTodo, toggleComplete } from "@/Redux/Feature/todoSlice";
+type TTodoCard = {
+  id: id;
+  title: string;
+  description: string;
+  isCompleted?: boolean;
+};
+const TodoCard = ({ title, description, id, isCompleted }: TTodoCard) => {
+  const dispatch = useAppDispatch();
 
-const TodoCard = () => {
+  const toggleState = () => {
+    dispatch(toggleComplete(id));
+  };
+
   return (
     <div className="flex rounded-md justify-between items-center p-3 border bg-white">
-      <input type="checkbox" name="" id="" />
-      <p className="font-semibold">Title</p>
+      <input
+        onChange={toggleState}
+        type="checkbox"
+        name="complete"
+        id="complete"
+      />
+      <p className="font-semibold">{title}</p>
       <p className="font-semibold">Time</p>
-      <p className="font-semibold">Description</p>
+      {
+        <div>
+          {isCompleted ? (
+            <p className="font-semibold text-green-900">Complete</p>
+          ) : (
+            <p className="font-semibold text-red-950">Pending</p>
+          )}
+        </div>
+      }
+      <p className="font-semibold">{description}</p>
       <div className="space-x-5">
         <Button className="bg-slate-700">
           <svg
@@ -16,7 +42,7 @@ const TodoCard = () => {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            className="size-6"
+            className="size-3"
           >
             <path
               stroke-linecap="round"
@@ -25,14 +51,17 @@ const TodoCard = () => {
             />
           </svg>
         </Button>
-        <Button className="bg-rose-800">
+        <Button
+          className="bg-rose-800"
+          onClick={() => dispatch(removeTodo(id))}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            className="size-6"
+            className="size-3"
           >
             <path
               stroke-linecap="round"

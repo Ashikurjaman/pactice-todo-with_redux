@@ -1,10 +1,10 @@
-import React from "react";
 import TodoCard from "./TodoCard";
-import { Button } from "../ui/button";
 import AddTodoModal from "./AddTodoModal";
 import AddFiltaring from "./AddFiltaring";
+import { useAppSelector } from "@/Redux/Hook";
 
 const Todocontainer = () => {
+  const { todo } = useAppSelector((state) => state.todos);
   return (
     <div>
       <div className="mb-5 flex justify-between">
@@ -16,10 +16,9 @@ const Todocontainer = () => {
           <p>This is no Task</p>
         </div> */}
         <div className="bg-white space-y-5 w-full h-full rounded-lg p-5">
-          <TodoCard />
-          <TodoCard />
-          <TodoCard />
-          <TodoCard />
+          {todo.map((item) => (
+            <TodoCard {...item} key={item.id} />
+          ))}
         </div>
       </div>
     </div>
