@@ -1,4 +1,3 @@
-import React from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,8 +8,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "../ui/button";
-const AddFiltaring = () => {
-  const [position, setPosition] = React.useState("bottom");
+const AddFiltaring = ({ priority, setPriority }) => {
+  console.log("hhh", priority);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -21,10 +20,10 @@ const AddFiltaring = () => {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Select</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuRadioGroup value={position} onValueChange={setPosition}>
-          <DropdownMenuRadioItem value="top">High</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="bottom">Medium</DropdownMenuRadioItem>
-          <DropdownMenuRadioItem value="right">Low</DropdownMenuRadioItem>
+        <DropdownMenuRadioGroup value={priority} onValueChange={setPriority}>
+          <DropdownMenuRadioItem value="high">high</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="medium">medium</DropdownMenuRadioItem>
+          <DropdownMenuRadioItem value="low">low</DropdownMenuRadioItem>
         </DropdownMenuRadioGroup>
       </DropdownMenuContent>
     </DropdownMenu>

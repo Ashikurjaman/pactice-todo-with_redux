@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type TTodo = {
-  id: string;
+  _id: string;
   title: string;
   description: string;
   isCompleted?: boolean;
@@ -22,11 +22,12 @@ const todoSlice = createSlice({
       state.todo.push({ ...action.payload, isCompleted: false });
     },
     removeTodo: (state, action: PayloadAction<string>) => {
-      state.todo = state.todo.filter((item) => item.id !== action.payload);
+      state.todo = state.todo.filter((item) => item._id !== action.payload);
       console.log(state.todo);
     },
     toggleComplete: (state, action: PayloadAction<string>) => {
-      const task = state.todo.find((item) => item.id === action.payload);
+      const task = state.todo.find((item) => item._id === action.payload);
+      console.log(task);
 
       if (task) {
         task.isCompleted = !task.isCompleted;
@@ -34,7 +35,7 @@ const todoSlice = createSlice({
         if (task.isCompleted === true) {
           // Find the index of the task in state.todo
           const foundIdx = state.todo.findIndex(
-            (el: TTodo) => el.id === task.id
+            (el: TTodo) => el._id === task._id
           );
 
           if (foundIdx > -1) {
